@@ -39,19 +39,87 @@ const bubbleSort = (array = randomArr(10)) => {
 }
 
 const insertionSort = (array = randomArr(10)) => {
-    // [17, 66, 94, 46, 48, 10, 94, 5, 67, 90]
+    console.log(array);
     for (let i = 0; i < array.length; i++) {
-        if (array[i] > array[i+1]) {
-            while(array[i] > array[i+1]) {
-                array[i] = array[i] + array[i+1];
-                array[i+1] = array[i] - array[i+1];
-                array[i] = array[i] - array[i+1];
-            }
+        let key = array[i];
+        let j = i-1;
+
+        while(array[j] > key) {
+            array[j+1] = array[j];
+            j--;
         }
+        array[j+1] = key;
     }
     console.log(array);
 }
 
+const mergeSort = (arr = randomArr(11)) => {
+    console.log(arr);
+    if (arr.length === 1) {
+        return arr;
+    }
+    const leftArray = [];
+    const rightArray = [];
+    const length = arr.length;
+    const mid = Math.floor(length / 2);
+    
+    for (let i = 0; i < mid; i++) {
+        leftArray.push(arr[i]);
+    }
+    for (let i = mid; i < length; i++) {
+        rightArray.push(arr[i]);
+    }
+    const left = mergeSort(leftArray);
+    const right = mergeSort(rightArray);
+    return merge(left, right);;
+}
+
+const merge = (left, right) => {
+    let i = j = 0;
+    const leftLength = left.length;
+    const rightLength = right.length;
+    const result = [];
+    while (i < leftLength && j < rightLength) {
+        if (left[i] < right[j]) {
+            result.push(left[i]);
+            i++;
+        } else {
+            result.push(right[j]);
+            j++;
+        }
+    }
+
+    while(i<leftLength) {
+        result.push(left[i]);
+        i++;
+    }
+    while(j<rightLength) {
+        result.push(right[j]);
+        j++;
+    }
+    return result;
+}
+
+const recursiveBubbleSort = (arr = randomArr(10)) => {
+    console.log(arr);
+    if (arr.length === 0) {
+        return;
+    }
+    for (let i = 0; i<arr.length - 1; i++) {
+        if (arr[i] > arr[i+1]) {
+            let temp = arr[i];
+            arr[i] = arr[i+1];
+            arr[i+1] = temp;
+        }           
+    }
+    console.log(arr);
+    recursiveBubbleSort(arr.slice(0, arr.length-1));
+
+    console.log(arr);
+}
+
 // selectionSort();
 // bubbleSort();
-insertionSort();
+// insertionSort();
+// console.log(mergeSort());
+recursiveBubbleSort();
