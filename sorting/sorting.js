@@ -118,8 +118,25 @@ const recursiveBubbleSort = (arr = randomArr(10)) => {
     console.log(arr);
 }
 
+const recursiveInsrtionSort = (arr = randomArr(10), index = 1) => {
+    if (index >= arr.length || index === 0) {
+        return arr;
+    }
+    let j = index;
+    while(arr[j] < arr[j-1] && j > 0) {
+        const temp = arr[j-1];
+        arr[j-1] = arr[j];
+        arr[j] = temp;
+        j--;
+    }
+    return recursiveInsrtionSort(arr, index+1);
+}
+
+console.log(recursiveInsrtionSort(arr, 1));
+
 // selectionSort();
 // bubbleSort();
 // insertionSort();
 // console.log(mergeSort());
+// recursiveBubbleSort();
 recursiveBubbleSort();
